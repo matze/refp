@@ -1,0 +1,9 @@
+{
+    "name": "refp",
+    "version": "0.1.0",
+    "repo": "matze/refp",
+    "description": "Reference counted pointer",
+    "keywords": ["memory management", "pointer"],
+    "license": "MIT",
+    "src": ["src/ref.c", "src/ref.h"]
+}
