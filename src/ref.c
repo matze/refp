@@ -11,6 +11,10 @@ typedef struct {
 } refp_real;
 
 
+/**
+ * Create a new reference pointer from `p`. If `func` is given, it is called
+ * with `p` as an argument when the reference count reaches zero.
+ */
 refp *
 ptr_new (void *p, RefPtrDestroyFunc func)
 {
@@ -26,12 +30,20 @@ ptr_new (void *p, RefPtrDestroyFunc func)
     return (refp *) real;
 }
 
+/**
+ * Create a new reference pointer and allocate memory with `size` bytes.
+ */
 refp *
 ptr_alloc (size_t size)
 {
     return ptr_new (malloc (size), free);
 }
 
+/**
+ * Increase the reference counter.
+ *
+ * This function is thread-safe.
+ */
 refp *
 ptr_ref (refp *ref)
 {
@@ -48,6 +60,12 @@ ptr_ref (refp *ref)
     return ref;
 }
 
+/**
+ * Decrease the reference counter. If it reaches zero, all associated resources
+ * are freed and `func` is called when set.
+ *
+ * This function is thread-safe.
+ */
 refp *
 ptr_unref (refp *ref)
 {
